@@ -1,7 +1,7 @@
 services:
-  - name: backup-db
+  - name: octo_webapp_pg_dump
     type: cron
-    schedule: "0 3 * * *"
+    schedule: "0 17 * * *"
     region: oregon
     env: docker
     plan: standard
