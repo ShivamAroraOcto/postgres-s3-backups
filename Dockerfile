@@ -1,10 +1,13 @@
-ARG ALPINE_VERSION
-FROM alpine:${ALPINE_VERSION} as alpine
+ARG POSTGRES_VERSION=18
 
-ARG POSTGRES_VERSION
-RUN apk add --no-cache postgresql$POSTGRES_VERSION-client \
-      aws-cli
+FROM postgres:${POSTGRES_VERSION}-alpine
+
+RUN apk add --no-cache aws-cli
+
 WORKDIR /scripts
 
 COPY backup.sh .
-ENTRYPOINT [ "sh", "backup.sh" ]
+
+RUN chmod +x backup.sh
+
+ENTRYPOINT ["sh", "backup.sh"]
